@@ -50,6 +50,14 @@ class _MyAppState extends State<MyApp> {
             children: <Widget>[
               Text('Running on: $_platformVersion\n'),
               Text('状态: $status'),
+              RaisedButton(
+                child: Text('发送数据'),
+                textColor: Colors.white,
+                color: Theme.of(context).accentColor,
+                onPressed: () {
+                  send(0x41);
+                },
+              ),
             ],
           ),
         ),
@@ -67,5 +75,9 @@ class _MyAppState extends State<MyApp> {
         status = "Infrared module is not supported in mobile hardware";
       }
     });
+  }
+
+  Future<void> send(int data) async {
+    await FlutterInfrare.send(data);
   }
 }
