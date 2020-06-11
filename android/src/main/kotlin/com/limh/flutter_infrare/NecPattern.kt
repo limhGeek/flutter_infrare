@@ -1,5 +1,6 @@
 package com.limh.flutter_infrare
 
+import android.util.Log
 import java.util.*
 
 /**
@@ -32,8 +33,10 @@ internal object NecPattern {
     fun buildPattern(userCodeH: Int, userCodeL: Int, keyCode: Int): IntArray {
         //用户编码高八位00
         val userH = constructBinaryCode(userCodeH)
+        Log.d("AudioUtils","原始值：$userCodeH,userH=$userH")
         //用户编码低八位DF
         val userL = constructBinaryCode(userCodeL)
+        Log.d("AudioUtils","原始值：$userCodeL,userL=$userL")
         //数字码
         val key = constructBinaryCode(keyCode)
         //数字反码

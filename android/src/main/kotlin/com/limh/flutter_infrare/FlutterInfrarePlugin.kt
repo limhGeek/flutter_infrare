@@ -10,15 +10,13 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 /** FlutterInfrarePlugin */
 public class FlutterInfrarePlugin : FlutterPlugin, MethodCallHandler {
     private val TAG = "flutter_infrare"
     private lateinit var channel: MethodChannel
     private lateinit var service: ConsumerIrManager
-    private var autioUtils: AudioUtils? = null
     private lateinit var context: Context
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -49,24 +47,24 @@ public class FlutterInfrarePlugin : FlutterPlugin, MethodCallHandler {
             }
             return result.success(isSupport)
         } else if (call.method == "send") {
-            val data: Int = call.arguments as Int
+            val params: String = call.arguments as String
+            val paramsJson = JSONObject(params)
+            Log.d(TAG, "收到数据：$params")
+            val userCodeH = paramsJson.getInt("userCode1")
+            val userCodeL = paramsJson.getInt("userCode2")
+            val data = paramsJson.getInt("data")
             Log.d(TAG, "send data=$data")
             if (service.hasIrEmitter()) {
-                service.transmit(38000, NecPattern.buildPattern(0X08, 0XE6, data))
+                service.transmit(38000, NecPattern.buildPattern(userCodeH, userCodeL, data))
             } else {
-                //TODO 不支持红外模块，改用其他方式
                 Log.d(TAG, "不支持硬件红外模块")
-                if (null == autioUtils) {
-                    autioUtils = AudioUtils()
-                }
-                GlobalScope.launch {
-                    autioUtils?.signalProcessor(19000)
-                    autioUtils?.play(NecPattern.buildPattern(0X08, 0XE6, data).toList())
-                }
+                AudioUtils.getInstance().play(NecPattern.buildPattern(0X08, 0XE6, data).toList())
             }
         } else {
             result.notImplemented()
         }
+//        {"userCode1":8,"userCode2":230,"data":65}
+//        8,userH=00010000  230,userL=01100111
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {

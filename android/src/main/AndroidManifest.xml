@@ -1,5 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.limh.flutter_infrare">
-    <uses-permission android:name="android.permission.TRANSMIT_IR"/>
-    <uses-feature android:name="android.hardware.ConsumerIrManager" android:required="false"/>
+    package="com.limh.flutter_infrare">
+
+    <uses-permission android:name="android.permission.TRANSMIT_IR" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <uses-feature
+        android:name="android.hardware.ConsumerIrManager"
+        android:required="false" />
 </manifest>

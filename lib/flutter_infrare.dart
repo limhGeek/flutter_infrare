@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
@@ -19,9 +20,13 @@ class FlutterInfrare {
     }
   }
 
-  static Future<void> send(int data) async {
+  static Future<void> send(int userCode1, int userCode2, int data) async {
     if (Platform.isAndroid) {
-      return await _channel.invokeMethod('send', data);
+      Map<String, int> params = Map();
+      params['userCode1'] = userCode1;
+      params['userCode2'] = userCode2;
+      params['data'] = data;
+      return await _channel.invokeMethod('send', json.encode(params));
     }
   }
 }

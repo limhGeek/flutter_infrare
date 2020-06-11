@@ -78,6 +78,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> send(int data) async {
-    await FlutterInfrare.send(data);
+    await FlutterInfrare.send(0x08, 0xe6, data);
   }
 }

@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99860793-f491-4068-a2ac-f8fe334910b1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/limh/flutter_infrare/AudioUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/limh/flutter_infrare/AudioUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/limh/flutter_infrare/FlutterInfrarePlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/limh/flutter_infrare/FlutterInfrarePlugin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/limh/flutter_infrare/NecPattern.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/limh/flutter_infrare/NecPattern.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/flutter_infrare.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/flutter_infrare.dart" afterDir="false" />
     </list>
@@ -57,7 +58,10 @@
       <option name="presentableId" value="Default" />
       <updated>1591326384255</updated>
       <workItem from="1591326411319" duration="7346000" />
-      <workItem from="1591350423628" duration="1358000" />
+      <workItem from="1591350423628" duration="3282000" />
+      <workItem from="1591685747316" duration="2514000" />
+      <workItem from="1591757233810" duration="2524000" />
+      <workItem from="1591863449046" duration="2154000" />
     </task>
     <servers />
   </component>
@@ -69,7 +73,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
