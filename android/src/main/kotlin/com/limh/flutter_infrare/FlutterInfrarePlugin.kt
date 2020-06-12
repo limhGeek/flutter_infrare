@@ -2,7 +2,11 @@ package com.limh.flutter_infrare
 
 import android.content.Context
 import android.hardware.ConsumerIrManager
+import android.media.AudioManager
+import android.media.AudioManager.GET_DEVICES_OUTPUTS
+import android.os.Build
 import androidx.annotation.NonNull
+import androidx.annotation.RequiresApi
 import io.flutter.Log
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
@@ -17,6 +21,7 @@ public class FlutterInfrarePlugin : FlutterPlugin, MethodCallHandler {
     private val TAG = "flutter_infrare"
     private lateinit var channel: MethodChannel
     private lateinit var service: ConsumerIrManager
+    private var am: AudioManager? = null
     private lateinit var context: Context
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -58,13 +63,29 @@ public class FlutterInfrarePlugin : FlutterPlugin, MethodCallHandler {
                 service.transmit(38000, NecPattern.buildPattern(userCodeH, userCodeL, data))
             } else {
                 Log.d(TAG, "不支持硬件红外模块")
-                AudioUtils.getInstance().play(NecPattern.buildPattern(0X08, 0XE6, data).toList())
+                if (null == am) {
+                    am = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+                }
+                var canOut = true
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    val outputs = am?.getDevices(GET_DEVICES_OUTPUTS)
+                    if (null == outputs || outputs.isEmpty()) {
+                        canOut = false
+                    }
+                } else {
+                    am?.let {
+                        canOut = it.isWiredHeadsetOn
+                    }
+                }
+                if (canOut) {
+                    AudioUtils.getInstance().play(NecPattern.buildPattern(userCodeH, userCodeL, data).toList())
+                } else {
+                    result.error("-1", "不支持", "手机不支持红外且未接外部模块")
+                }
             }
         } else {
             result.notImplemented()
         }
-//        {"userCode1":8,"userCode2":230,"data":65}
-//        8,userH=00010000  230,userL=01100111
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {

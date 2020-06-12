@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
                 textColor: Colors.white,
                 color: Theme.of(context).accentColor,
                 onPressed: () {
-                  send(0x41);
+                  send(0x08, 0XE6, 0x41);
                 },
               ),
             ],
@@ -77,7 +77,11 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  Future<void> send(int data) async {
-    await FlutterInfrare.send(0x08, 0xe6, data);
+  ///发送命令
+  ///userCodeH：用户码1
+  ///userCodeL：用户码2
+  ///data：键值
+  Future<void> send(int userCodeH, int userCodeL, int data) async {
+    await FlutterInfrare.send(userCodeH, userCodeL, data);
   }
 }
